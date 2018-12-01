@@ -8,7 +8,7 @@ services:
     build: ./Zac
     image: zac
     environment:
-      - DB_SERVER=mongodb-zack
+      - DB_SERVER=mongodb-zac
       - DB_NAME=zac
     networks:
       - web
