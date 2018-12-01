@@ -9,7 +9,10 @@ WORKDIR /app
 RUN git clone https://github.com/VitorDaynno/Zac.git /app && \
     cd /app && \
     chmod +x requirements.sh && \
-    ./requirements.sh && \
-    chmod +x start.sh
+    ./requirements.sh
+
+COPY ./start.sh .
+
+RUN chmod +x start.sh
 
 CMD ["/app/start.sh"]
