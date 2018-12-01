@@ -12,6 +12,7 @@ services:
       - DB_NAME=zac
     networks:
       - web
+      - db
     ports:
       - 80:80
   mongodb-zac:
