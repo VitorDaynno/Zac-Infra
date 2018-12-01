@@ -1,0 +1,25 @@
+version: '3'
+networks: 
+  web:
+  db:
+services:
+  zac:
+    restart: always
+    build: ./Zac
+    image: zac
+    environment:
+      - DB_SERVER=mongodb-zack
+      - DB_NAME=zac
+    networks:
+      - web
+    ports:
+      - 80:80
+  mongodb-zac:
+    image: mongo:latest
+    environment: 
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/mongodb/cdals:/data/db
+    networks:
+      - db
