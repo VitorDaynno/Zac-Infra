@@ -22,5 +22,6 @@ services:
       - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./data/mongodb/cdals:/data/db
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - db
