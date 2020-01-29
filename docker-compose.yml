@@ -10,6 +10,7 @@ services:
     environment:
       - DB_SERVER=mongodb-zac
       - DB_NAME=zac
+      - TOKEN_BOT={token}
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
