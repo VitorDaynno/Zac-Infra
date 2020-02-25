@@ -11,6 +11,9 @@ services:
       - DB_SERVER=mongodb-zac
       - DB_NAME=zac
       - TOKEN_BOT={token}
+      - REDIS_SERVER=redis-zac
+      - REDIS_PORT=6379
+      - REDIS_DB=0
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
@@ -25,6 +28,12 @@ services:
       - MONGO_LOG_DIR=/dev/null
     volumes:
       - ./data/mongodb/cdals:/data/db
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - db
+  redis-zac:
+    image: redis:latest
+    volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - db
