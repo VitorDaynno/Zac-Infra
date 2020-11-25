@@ -19,8 +19,6 @@ services:
     networks:
       - web
       - db
-    # ports:
-    #   - 80:80
   zac-service:
     restart: always
     build: ./zac-service
