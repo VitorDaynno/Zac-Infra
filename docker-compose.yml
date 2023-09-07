@@ -1,47 +1,23 @@
 version: '3'
 networks: 
   web:
+    external: true
   db:
 services:
-  zac:
-    restart: always
-    build: ./Zac
-    image: zac
-    environment:
-      - DB_SERVER=mongodb-zac
-      - DB_NAME=zac
-      - TOKEN_BOT={token}
-      - REDIS_SERVER=redis-zac
-      - REDIS_PORT=6379
-      - REDIS_DB=0
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      - web
-      - db
   zac-service:
     restart: always
     build: ./zac-service
     image: zac-service
-    environment:
-      - JWT_SECRET={JWT_SECRET}
-      - JWT_ALGORITHM={JWT_ALGORITHM}
-      - DB_SERVER=mongodb-zac
-      - DB_PORT=27017
-      - DB_DATABASE=zac
-      - ZAC_HOST=localhost
-      - ZAC_PORT=5000
-      - ZAC_SALT={ZAC_SALT}
-      - BOARDS_URL={BOARDS_URL}
-      - CARDS_URL={CARDS_URL}
-      - TRELLO_KEY={TRELLO_KEY}
-      - TRELLO_TOKEN={TRELLO_TOKEN}
-      - TRELLO_USER={TRELLO_USER}
+    env_file:
+      - .env
     volumes:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - web
       - db
+    depends_on:
+      - mongodb-zac
+    container_name: zac-service
   mongodb-zac:
     image: mongo:latest
     environment: 
@@ -52,18 +28,3 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - db
-  redis-zac:
-    image: redis:latest
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    networks:
-      - db
-  zac-app:
-    build: ./zac-app
-    networks:
-      - web
-    volumes:
-      - /etc/localtime:/etc/localtime
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - 80:80
