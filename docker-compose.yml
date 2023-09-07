@@ -17,7 +17,7 @@ services:
       - db
     depends_on:
       - mongodb-zac
-    container_name: zac-services
+    container_name: zac-service
   mongodb-zac:
     image: mongo:latest
     environment: 
